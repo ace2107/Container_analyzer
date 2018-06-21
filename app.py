@@ -1,5 +1,4 @@
 import requests
-import json
 
 #registry = "https://openshift.default.svc.cluster.local"
 api_url = "http://user-api-thoth-test-core.cloud.upshift.engineering.redhat.com/api/v1/analyze"
