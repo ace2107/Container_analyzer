@@ -4,7 +4,7 @@ import requests
 api_url = "http://user-api-thoth-test-core.cloud.upshift.engineering.redhat.com/api/v1/analyze"
 
 
-images = ['fedora:28','fedora27','fedora26']
+images = ['fedora:28','fedora:27','fedora:26']
 analyzer = 'fridex/thoth-package-extract'
 
 HEADERS = {
