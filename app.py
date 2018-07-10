@@ -1,6 +1,7 @@
 import requests
 
-#registry = "https://openshift.default.svc.cluster.local"
+internal_registry = "docker-registry.default.svc:5000/dh-stage-jupyterhub/*"
+
 api_url = "http://user-api-thoth-test-core.cloud.upshift.engineering.redhat.com/api/v1/analyze"
 
 

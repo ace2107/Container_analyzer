@@ -8,8 +8,8 @@ metadata:
   annotations:
     description: This is Thoth Core - Container analyzer BuildConfig
     openshift.io/display-name: "Thoth: COntainer analyzer BuildConfig"
-    version: 0.2.0
-    tags: poc,thoth,ai-stacks,package-extract
+    version: 0.3.0
+    tags: poc,thoth,ai-stacks,package-extract,graph,janusgraph
     template.openshift.io/documentation-url: https://github.com/Thoth-Station/
     template.openshift.io/long-description: |-
       This template defines resources needed to deploy Thoth
@@ -20,46 +20,9 @@ objects:
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: container-analyzer-base
-    labels:
-      app: thoth-core
-      component: container-analyzer-base
-  spec:
-    resources:
-      requests:
-        cpu: 1
-        memory: 512Mi
-      limits:
-        cpu: 2
-        memory: 1024Mi
-    output:
-      to:
-        kind: ImageStreamTag
-        name: "container-analyzer-base:${IMAGE_STREAM_TAG}"
-    source:
-      type: Git
-      git:
-        uri: "${GITHUB_URL}"
-        ref: "${GITHUB_REF}"
-    strategy:
-      dockerStrategy:
-        dockerfilePath: Dockerfile-base.fedora
-        from:
-          kind: DockerImage
-          name: fedora:27
-        imageOptimizationPolicy: SkipLayers
-    triggers:
-    - type: ConfigChange
-    - type: ImageChange
-      imageChange: {}
-
-- kind: BuildConfig
-  apiVersion: v1
-  metadata:
     name: container-analyzer-job
     labels:
       app: thoth-core
-      component: container-analyzer-job
   spec:
     resources:
       requests:
@@ -71,18 +34,18 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: "package-extract-job:${IMAGE_STREAM_TAG}"
+        name: "container-analyzer-job:${IMAGE_STREAM_TAG}"
     source:
       type: Git
       git:
         uri: "${GITHUB_URL}"
         ref: "${GITHUB_REF}"
     strategy:
-      dockerStrategy:
-        dockerfilePath: Dockerfile
+      type: S2I
+      sourceStrategy:
         from:
           kind: ImageStreamTag
-          name: "package-extract-base:${IMAGE_STREAM_TAG}"
+          name: "container-analyzer-base:${IMAGE_STREAM_TAG}"
         imageOptimizationPolicy: SkipLayers
     triggers:
     - type: ConfigChange
