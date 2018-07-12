@@ -2,7 +2,7 @@ import requests
 
 internal_registry = "docker-registry.default.svc:5000/dh-stage-jupyterhub/*"
 
-api_url = "http://user-api-thoth-test-core.cloud.upshift.engineering.redhat.com/api/v1/analyze"
+api_url = "http://user-api-thoth-test-core.cloud.paas.upshift.redhat.com/api/v1/ui/#/"
 
 
 images = ['fedora:28','fedora:27','fedora:26']
