@@ -23,6 +23,5 @@ for image in images:
 
 	r = requests.post(url=api_url,params=PARAMS,headers=HEADERS,timeout=10)
 	print(r.status_code)
-	r.raise_for_status()
 	analysis_results=r.json()
 	print(analysis_results)
