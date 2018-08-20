@@ -8,7 +8,9 @@ headers = {'Authorization':'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3Mi
 
 response = requests.get(internal_registry,headers = headers,verify = False)
 print(response)
-print(typeof(response))
+print(type(response))
+data = response.json()
+print(data)
 images = ['fedora:28','fedora:27','fedora:26']
 analyzer = 'fridex/thoth-package-extract'
 
