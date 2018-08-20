@@ -25,14 +25,14 @@ HEADERS = {
 }
 
 for image in images:
-	PARAMS = (
-    ('image', image),
-    ('analyzer', analyzer),
-    ('debug', 'false'),
-    ('verify-tls', 'true'),
+    PARAMS = (
+        ('image', image),
+        ('analyzer', analyzer),
+        ('debug', 'false'),
+        ('verify-tls', 'true'),
     )
-
-	r = requests.post(url=api_url,params=PARAMS,headers=HEADERS,timeout=10)
-	print(r.status_code)
-	analysis_results=r.json()
-	print(analysis_results)
+    
+    r = requests.post(url=api_url,params=PARAMS,headers=HEADERS,timeout=10)
+    print(r.status_code)
+    analysis_results=r.json()
+    print(analysis_results)
