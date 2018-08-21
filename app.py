@@ -34,7 +34,7 @@ for image in images:
     ('image', image),
     ('analyzer', analyzer),
     ('debug', 'false'),
-    ('verify-tls', 'true'),
+    ('verify-tls', 'false'),
     )
 
     r = requests.post(url=api_url,params=PARAMS,headers=HEADERS,timeout=10,verify = False)
