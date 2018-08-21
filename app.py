@@ -37,7 +37,7 @@ for image in images:
     ('verify-tls', 'true'),
     )
 
-    r = requests.post(url=api_url,params=PARAMS,headers=HEADERS,timeout=10)
+    r = requests.post(url=api_url,params=PARAMS,headers=HEADERS,timeout=10,verify = False)
     print(r)
     print(r.url)
     print(r.status_code)
