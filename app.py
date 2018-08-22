@@ -33,8 +33,8 @@ for image in images:
     PARAMS = (
     ('image', image),
     ('registry_user','container-analyzer-sa'),
-    ('registry_password',API_TOKEN)
-    ('debug','true')
+    ('registry_password',API_TOKEN),
+    ('debug','true'),
     ('verify-tls','false')
     )
 
