@@ -9,9 +9,13 @@ api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/
 #namespace input taken from user
 API_TOKEN = get_service_account_token()
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
+print(headers)
 
 response1 = requests.get(internal_registry,headers = headers,verify = False)
 response = response1.text
+print(response1.url)
+print(response1.status_code)
+print(response)
 
 temp = re.findall(r'"dockerImageRepository":.(.*?)"tags',response)
 images = []
