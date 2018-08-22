@@ -29,9 +29,9 @@ objects:
     failedJobsHistoryLimit: 4
     jobTemplate:
       spec:
-        serviceAccountName: container-analyzer
         template:
           spec:
+            serviceAccountName: container-analyzer
             containers:
             - image: container-analyzer-job
               name: containeranalyzer-job

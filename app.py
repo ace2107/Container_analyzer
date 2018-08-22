@@ -34,7 +34,7 @@ for image in images:
     ('image', image),
     ('debug', 'false'),
     ('verify-tls', 'false'),
-    ('registry_user','container-analyzer-sa'),
+    ('registry_user','container-analyzer'),
     ('registry_password',API_TOKEN)
     )
 
