@@ -35,7 +35,7 @@ for image in images:
     ('registry_user','container-analyzer-sa'),
     ('registry_password',API_TOKEN),
     ('debug','true'),
-    ('verify-tls','false')
+    ('verify_tls','false')
     )
 
     r = requests.post(url=api_url,params=PARAMS,verify = False)
