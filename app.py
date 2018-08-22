@@ -1,24 +1,13 @@
 import requests
 import json
 import re
+from thoth-common import get_service_account_token
 
 internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespaces/dh-stage-jupyterhub/imagestreams"
-
 api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
-
-def get_service_account_token():
-    """Get token from service account token file."""
-    try:
-        with open('/var/run/secrets/kubernetes.io/serviceaccount/token', 'r') as token_file:
-            return token_file.read()
-    except FileNotFoundError as exc:
-        raise FileNotFoundError("Unable to get service account token, please check "
-                                "that service has service account assigned with exposed token") from exc
 
 #namespace input taken from user
 API_TOKEN = get_service_account_token()
-print(API_TOKEN)
-print(type(API_TOKEN))
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
 
 response1 = requests.get(internal_registry,headers = headers,verify = False)

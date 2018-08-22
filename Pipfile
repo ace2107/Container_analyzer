@@ -4,8 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-test = "*"
 requests = "*"
+thoth-common = "*"
 
 [dev-packages]
 
