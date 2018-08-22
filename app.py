@@ -33,9 +33,9 @@ for image in images:
     PARAMS = (
     ('image', image),
     ('debug', 'false'),
-    ('verify-tls', 'false'),
-    ('registry_user','container-analyzer'),
     ('registry_password',API_TOKEN)
+    ('debug','true')
+    ('verify_tls','false')
     )
 
     r = requests.post(url=api_url,params=PARAMS,verify = False)

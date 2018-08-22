@@ -31,7 +31,7 @@ objects:
       spec:
         template:
           spec:
-            serviceAccountName: container-analyzer
+            serviceAccountName: container-analyzer-sa
             containers:
             - image: container-analyzer-job
               name: containeranalyzer-job
