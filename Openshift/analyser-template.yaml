@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: thoth-container-image-analyzer
+  annotations:
+    description: This is Thoth Core 
+    openshift.io/display-name: "Thoth Core: Analyzer"
+    version: 0.2.0
+    tags: poc,thoth,ai-stacks
+    template.openshift.io/documentation-url: https://github.com/Thoth-Station/
+    template.openshift.io/long-description: This template defines resources needed to deploy Thoth Core Services as a Proof-of-Concept to OpenShift.
+    template.openshift.io/provider-display-name: Red Hat, Inc.
+  labels:
+    template: thoth-core
+    app: thoth
+
+objects:
+
+## Service Accounts
+- kind: ServiceAccount
+  apiVersion: v1
+  metadata:
+    name: container-analyzer
+    namespace: thoth-test-core
+    labels:
+      app: thoth
+  automountServiceAccountToken: true
+
+- apiVersion: v1
+  kind: RoleBinding
+  metadata:
+    name: role-jobs-binding
+    namespace: dh-stage-jupyterhub
+    labels:
+      app: thoth
+  roleRef:
+    kind: ClusterRole
+    name: edit
+  subjects:
+    - kind: ServiceAccount
+      name: container-analyzer
+      namespace: thoth-test-core
