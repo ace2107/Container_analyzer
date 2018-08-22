@@ -39,3 +39,4 @@ for image in images:
     print(r.status_code)
     analysis_results=r.json()
     print(analysis_results)
+    break
