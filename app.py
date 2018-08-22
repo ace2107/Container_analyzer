@@ -1,7 +1,7 @@
 import requests
 import json
 import re
-from thoth-common import get_service_account_token
+from thoth.common import get_service_account_token
 
 internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespaces/dh-stage-jupyterhub/imagestreams"
 
