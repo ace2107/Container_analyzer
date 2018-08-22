@@ -6,8 +6,6 @@ internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespa
 
 api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
 
-API_TOKEN = get_service_account_token()
-
 def get_service_account_token():
     """Get token from service account token file."""
     try:
@@ -16,7 +14,9 @@ def get_service_account_token():
     except FileNotFoundError as exc:
         raise FileNotFoundError("Unable to get service account token, please check "
                                 "that service has service account assigned with exposed token") from exc
+
 #namespace input taken from user
+API_TOKEN = get_service_account_token()
 print(API_TOKEN)
 print(type(API_TOKEN))
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
