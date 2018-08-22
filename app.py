@@ -32,10 +32,10 @@ for image in images:
 for image in images:
     PARAMS = (
     ('image', image),
-    ('debug', 'false'),
+    ('registry_user','container-analyzer-sa'),
     ('registry_password',API_TOKEN)
     ('debug','true')
-    ('verify_tls','false')
+    ('verify-tls','false')
     )
 
     r = requests.post(url=api_url,params=PARAMS,verify = False)
