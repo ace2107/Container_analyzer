@@ -14,8 +14,7 @@ response1 = requests.get(internal_registry,headers = headers,verify = False)
 response = response1.text
 response2 = response1.json()
 
-parsed = json.loads(response2)
-print(json.dumps(parsed, indent = 4,sort_keys = True))
+print(json.dumps(response2, indent = 4,sort_keys = True))
 print(response1.url)
 print(response1.status_code)
 
