@@ -1,2 +1,4 @@
 requests
 thoth-common
+kubernetes
+openshift

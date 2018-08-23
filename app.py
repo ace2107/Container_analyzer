@@ -1,6 +1,4 @@
 import requests
-import json
-import re
 from thoth.common import get_service_account_token
 
 internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespaces/dh-stage-jupyterhub/imagestreams"
@@ -12,10 +10,14 @@ headers = {'Authorization':'Bearer %s' %API_TOKEN}
 print(headers)
 
 response1 = requests.get(internal_registry,headers = headers,verify = False)
+response2 = response1.json()
+
+parsed = json.loads(response2)
+print(json.dumps(parsed, indent=4, sort_keys=True))
+
 response = response1.text
 print(response1.url)
 print(response1.status_code)
-print(response)
 
 temp = re.findall(r'"dockerImageRepository":.(.*?)"tags',response)
 images = []
