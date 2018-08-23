@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 requests = "*"
 thoth-common = "*"
+openshift = "*"
+kubernetes = "*"
 
 [dev-packages]
 

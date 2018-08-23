@@ -1,0 +1,115 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: thoth-container-analyzer-template
+  annotations:
+  description: This is a container analyzer job for Thoth Core
+  openshift.io/display-name: "Thoth Core: Analyzer"
+  version: 0.0.1
+  template.openshift.io/provider-display-name: Red Hat, Inc.
+  labels:
+    template: thoth-core
+    app: thoth
+
+objects:
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      name: container-analyzer
+      labels:
+        app: thoth-core
+    spec:
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1024Mi
+        requests:
+          cpu: 500m
+          memory: 512Mi
+      output:
+        to:
+          kind: ImageStreamTag
+          name: 'container-analyzer:latest'
+      source:
+        type: Git
+        git:
+          uri: 'https://github.com/ace2107/Container-analyzer'
+          ref: master
+      strategy:
+        type: Source
+        sourceStrategy:
+          from:
+            kind: ImageStreamTag
+            name: container-analyzer-python-36-centos7:latest
+          env:
+            - name: ENABLE_PIPENV
+              value: '1'
+      triggers:
+        - type: ImageChange
+          imageChange: {}
+
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      labels:
+        app: thoth-core
+      name: container-analyzer
+    spec:
+      name: latest
+      lookupPolicy:
+        local: true
+
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name:  container-analyzer
+      labels:
+        app: thoth-core
+        name:  container-analyzer
+    spec:
+      selector:
+        name: container-analyzer
+      template:
+        metadata:
+          labels:
+            name: container-analyzer
+        replicas: 1
+        spec:
+          restartPolicy: Always
+          serviceAccountName: container-analyzer-sa
+          containers:
+            - name: container-analyzer
+              image: container-analyzer
+              resources:
+                limits:
+                  memory: '96Mi'
+                  cpu: '125m'
+                requests:
+                  memory: '96Mi'
+                  cpu: '125m'
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames: [container-analyzer]
+            from:
+              kind: ImageStreamTag
+              name: 'container-analyzer:latest'
+
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: container-analyzer-python-36-centos7
+      labels:
+        app: thoth-core
+    spec:
+      lookupPolicy:
+        local: false
+      tags:
+        - from:
+            kind: DockerImage
+            name: registry.centos.org/centos/python-36-centos7
+          name: latest
+          referencePolicy:
+            type: Source
