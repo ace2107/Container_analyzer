@@ -33,7 +33,7 @@ objects:
       source:
         type: Git
         git:
-          uri: 'https://github.com/ace2107/Container-analyzer'
+          uri: 'https://github.com/ace2107/Container_analyzer'
           ref: master
       strategy:
         type: Source
