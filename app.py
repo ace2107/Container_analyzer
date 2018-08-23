@@ -21,11 +21,11 @@ containerimages = []
 imageshashes = []
 
 for doc in r["items"]:
-        dockerimages.append(doc["status"]["dockerImageRepository"])
+        containerimages.append(doc["status"]["dockerImageRepository"])
         print(doc["status"]["dockerImageRepository"])
         for l in doc["status"]["tags"]:
                 for k in l["items"]:
-                        imagekeys.append(k["image"])
+                        imageshashes.append(k["image"])
                         print(k["image"])
         print("\n \n ")
 
