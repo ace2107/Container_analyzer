@@ -43,8 +43,6 @@ _PAYLOAD = {
 """
 def main():
     watcher = kubernetes.watch.Watch()
-    for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
-        print(event)
     for event in watcher.stream(_K8S_API.list_namespaced_pod,namespace=_NAMESPACE):
         print(event)
         pod_name = event['object'].metadata.name
