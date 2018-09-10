@@ -44,7 +44,7 @@ _PAYLOAD = {
 def main():
     watcher = kubernetes.watch.Watch()
     print(_NAMESPACE)
-    temp = os.path("/run/secrets/kubernetes.io/serviceaccount")
+    temp = os.listdir("/run/secrets/kubernetes.io/serviceaccount")
     print(temp)
     for event in watcher.stream(_K8S_API.list_namespaced_pod,namespace=_NAMESPACE):
         print(event)
