@@ -45,8 +45,8 @@ _PAYLOAD = {
 def main():
     watcher = kubernetes.watch.Watch()
     for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
-        r = event.json()
-        print(json.dumps(r, indent = 4,sort_keys = True))
+        for key,value in event:
+            print(key,"\t",value,"\n")
 
 if __name__ == '__main__':
     print("Running Container-analyzer version", __version__)
