@@ -45,7 +45,7 @@ _PAYLOAD = {
 def main():
     watcher = kubernetes.watch.Watch()
     for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
-        event = event.dumps(event)
+        event = json.dumps(event)
         r = json.loads(event)
         print(json.dumps(r, indent = 4,sort_keys = True))
 
