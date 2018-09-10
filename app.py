@@ -16,7 +16,7 @@ import daiquiri
 import kubernetes
 import openshift
 
-daiquiri.setup(level=logging.DEBUG if bool(int(os.getenv('DEBUG_CONTAINER-ANALYZER', 0))) else logging.INFO)
+daiquiri.setup(level=logging.DEBUG if bool(int(os.getenv('DEBUG-CONTAINER-ANALYZER', 0))) else logging.INFO)
 
 # Load in-cluster configuration that is exposed by OpenShift/k8s configuration.
 kubernetes.config.load_incluster_config()
@@ -43,6 +43,12 @@ _PAYLOAD = {
 """
 def main():
     watcher = kubernetes.watch.Watch()
+    for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
+        print(event)
+    for event in watcher.stream(_K8S_API.list_namespaced_pod,namespace=_NAMESPACE):
+        print(event)
+        pod_name = event['object'].metadata.name
+        print(pod_name)
 
 if __name__ == '__main__':
     print("Running Container-analyzer version", __version__)

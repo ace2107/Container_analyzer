@@ -8,6 +8,7 @@ requests = "*"
 thoth-common = "*"
 openshift = "*"
 kubernetes = "*"
+daiquiri = "*"
 
 [dev-packages]
 

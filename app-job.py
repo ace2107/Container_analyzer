@@ -3,10 +3,10 @@ import json
 import re
 from thoth.common import get_service_account_token
 
+#add name of namespace as variable
 internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespaces/dh-stage-jupyterhub/imagestreams"
 api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
 
-#monitor multiple namespaces
 API_TOKEN = get_service_account_token()
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
 
@@ -19,7 +19,7 @@ print(response.status_code)
 
 containerimages = []
 imageshashes = []
-
+#use only latest image hash
 for doc in r["items"]:
         containerimages.append(doc["status"]["dockerImageRepository"])
         print(doc["status"]["dockerImageRepository"])
@@ -29,6 +29,7 @@ for doc in r["items"]:
                         print(k["image"])
         print("\n \n ")
 
+#name of sa
 for image in containerimages:
     PARAMS = (
     ('image', image),
