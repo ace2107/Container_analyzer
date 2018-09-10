@@ -47,11 +47,6 @@ def main():
     for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
         print(event)
         print(type(event))
-        r = json.dumps(event)
-        loadedr = json.loads(r)
-        print(loadedr)
-        print(type(loadedr))
-        print(json.dumps(loadedr, indent = 4, sort_keys=True))
 
 if __name__ == '__main__':
     print("Running Container-analyzer version", __version__)
