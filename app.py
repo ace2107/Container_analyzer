@@ -22,7 +22,8 @@ daiquiri.setup(level=logging.DEBUG if bool(int(os.getenv('DEBUG-CONTAINER-ANALYZ
 kubernetes.config.load_incluster_config()
 
 _LOGGER = logging.getLogger('container-analyzer')
-_NAMESPACE = Path('/run/secrets/kubernetes.io/serviceaccount/namespace').read_text()
+_NAMESPACE = "dh-stage-jupyterhub"
+#_NAMESPACE = Path('/run/secrets/kubernetes.io/serviceaccount/namespace').read_text()
 _K8S_API = kubernetes.client.CoreV1Api()
 _OCP_BUILD = openshift.client.BuildOpenshiftIoV1Api(openshift.client.ApiClient())
 
@@ -44,8 +45,6 @@ _PAYLOAD = {
 def main():
     watcher = kubernetes.watch.Watch()
     print(_NAMESPACE)
-    temp = os.listdir("/run/secrets/kubernetes.io/serviceaccount")
-    print(temp)
     for event in watcher.stream(_K8S_API.list_namespaced_pod,namespace=_NAMESPACE):
         print(event)
         pod_name = event['object'].metadata.name
