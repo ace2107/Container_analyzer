@@ -25,7 +25,6 @@ _LOGGER = logging.getLogger('container-analyzer')
 _NAMESPACE = Path('/run/secrets/kubernetes.io/serviceaccount/namespace').read_text()
 _K8S_API = kubernetes.client.CoreV1Api()
 _OCP_BUILD = openshift.client.BuildOpenshiftIoV1Api(openshift.client.ApiClient())
-_TEMP = Path('/run/secrets/kubernetes.io/serviceaccount').read_text()
 
 """
 # Payload sent to trigger analysis.
@@ -45,7 +44,8 @@ _PAYLOAD = {
 def main():
     watcher = kubernetes.watch.Watch()
     print(_NAMESPACE)
-    print(_TEMP)
+    temp = os.path("/run/secrets/kubernetes.io/serviceaccount")
+    print(temp)
     for event in watcher.stream(_K8S_API.list_namespaced_pod,namespace=_NAMESPACE):
         print(event)
         pod_name = event['object'].metadata.name
