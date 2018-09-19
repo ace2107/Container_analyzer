@@ -49,10 +49,9 @@ def main():
     configuration = openshift.client.Configuration()
 
     api_instance = openshift.client.ImageOpenshiftIoV1Api(openshift.client.ApiClient(configuration))
-    namespace = 'dh-stage-jupyterhub' # str | object name and auth scope, such as for teams and projects
-
+    namespace = 'dh-stage-jupyterhub' 
     try:
-        api_response = api_instance.list_namespaced_image_stream(namespace, pretty=pretty, _continue=_continue, field_selector=field_selector, include_uninitialized=include_uninitialized, label_selector=label_selector, limit=limit, resource_version=resource_version, timeout_seconds=timeout_seconds, watch=watch)
+        api_response = api_instance.list_namespaced_image_stream(namespace)
         print(api_response)
     except ApiException as e:
         print("Exception when calling ImageOpenshiftIoV1Api->list_namespaced_image_stream: %s\n" % e)
