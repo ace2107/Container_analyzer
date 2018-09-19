@@ -45,7 +45,11 @@ _PAYLOAD = {
 def main():
     watcher = kubernetes.watch.Watch()
     configuration = openshift.client.Configuration()
-
+    for event in watcher.stream(_K8S_API.list_namespaced_pod, namespace=_NAMESPACE):
+        print(event)
+        pod_name = event['object'].metadata.name
+        _LOGGER.debug("Retrieved event %r for pod %r", event['type'], pod_name)
+"""
     api_instance = openshift.client.ImageOpenshiftIoV1Api(openshift.client.ApiClient(configuration)) 
     try:
         api_response = api_instance.list_namespaced_image_stream(_NAMESPACE)
@@ -57,7 +61,7 @@ def main():
     for event in watcher.stream(API_INSTANCE.list_namespaced_image_stream(_NAMESPACE)):
         print(event)
         print(type(event))
-
+"""
 if __name__ == '__main__':
     print("Running Container-analyzer version", __version__)
     sys.exit(main())
