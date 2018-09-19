@@ -14,7 +14,7 @@ import json
 
 import daiquiri
 import kubernetes
-from openshift import client,config
+import openshift
 
 daiquiri.setup(level=logging.DEBUG if bool(int(os.getenv('DEBUG-CONTAINER-ANALYZER', 0))) else logging.INFO)
 
