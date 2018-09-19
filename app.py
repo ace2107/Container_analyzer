@@ -43,8 +43,8 @@ _PAYLOAD = {
 }
 """
 def main():
-    config.load_kube_config()
-    oapi = client.OapiApi()
+    openshift.config.load_kube_config()
+    oapi = openshift.client.OapiApi()
     #watcher = kubernetes.watch.Watch()
     project_list = oapi.list_project()
     configuration = openshift.client.Configuration()
