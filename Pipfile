@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 thoth-common = "*"
-openshift = "*"
+openshift = {git = "https://github.com/openshift/openshift-restclient-python.git"}
 kubernetes = "*"
 daiquiri = "*"
 

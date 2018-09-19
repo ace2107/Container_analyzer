@@ -44,9 +44,17 @@ _PAYLOAD = {
 """
 def main():
     watcher = kubernetes.watch.Watch()
-    for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
-        print(event)
-        print(type(event))
+    api_instance =  openshift.client.AdmissionregistrationAPI()
+    try:
+        api_response = api_instance.get_api_group()
+        pprint(api_response)
+    except APIException as e:
+        print("Exception when calling AdmissionregistrationApi->get_api_group: %s\n" % e)
+        
+
+    #for event in watcher.stream(_K8S_API.list_namespaced_event,namespace=_NAMESPACE):
+        #print(event)
+        #print(type(event))
 
 if __name__ == '__main__':
     print("Running Container-analyzer version", __version__)
