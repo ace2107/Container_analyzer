@@ -15,6 +15,10 @@ response = requests.get(internal_registry,headers = headers,verify = False)
 print(response)
 print(response.status_code)
 print(response.url)
+print(response.raw)
+print(response.headers)
+print(response.text)
+
 r = response.json()
 
 print(json.dumps(r, indent = 4,sort_keys = True))
