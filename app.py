@@ -4,7 +4,7 @@ import re
 from thoth.common import get_service_account_token
 
 #add name of namespace as variable
-internal_registry = "https://registry-console-default.cloud.registry.upshift.redhat.com/registry#/images/thoth-station"
+internal_registry = "docker-registry.default.svc:5000/thoth-station"
 api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
 
 API_TOKEN = get_service_account_token()
