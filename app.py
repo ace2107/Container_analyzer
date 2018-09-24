@@ -8,7 +8,8 @@ internal_registry = "https://registry-console-default.cloud.registry.upshift.red
 api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
 
 API_TOKEN = get_service_account_token()
-headers = {'Authorization':'Bearer %s' %API_TOKEN}
+headers={'accept': 'application/json'}
+#headers = {'Authorization':'Bearer %s' %API_TOKEN}
 
 response = requests.get(internal_registry,headers = headers,verify = False)
 print(response)
