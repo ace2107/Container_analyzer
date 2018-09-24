@@ -10,7 +10,7 @@ api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/
 API_TOKEN = get_service_account_token()
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
 
-response = requests.get(internal_registry,header = headers,verify = False)
+response = requests.get(internal_registry,headers = headers,verify = False)
 print(response)
 print(response.status_code)
 print(response.url)
