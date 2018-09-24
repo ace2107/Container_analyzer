@@ -4,13 +4,13 @@ import re
 from thoth.common import get_service_account_token
 
 #add name of namespace as variable
-internal_registry = "https://registry-console-default.cloud.registry.upshift.redhat.com/registry"
+internal_registry = "https://registry-console-default.cloud.registry.upshift.redhat.com/registry#/images/thoth-station"
 api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
 
 API_TOKEN = get_service_account_token()
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
 
-response = requests.get(internal_registry,verify = False)
+response = requests.get(internal_registry,header = headers,verify = False)
 print(response)
 print(response.status_code)
 print(response.url)
