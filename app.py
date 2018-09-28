@@ -6,20 +6,13 @@ from thoth.common import get_service_account_token
 #add name of namespace as variable
 internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespaces/dh-stage-jupyterhub/imagestreams"
 #api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
-api_url = "http://user-api-thoth-test-core.cloud.paas.upshift.redhat.com/api/v1/analyze/"
+api_url = "http://user-api-thoth-test-core.cloud.paas.upshift.redhat.com/api/v1/analyze"
 
 API_TOKEN = get_service_account_token()
 #headers={'accept': 'application/json'}
 headers = {'Authorization':'Bearer %s' %API_TOKEN}
 
 response = requests.get(internal_registry,headers = headers,verify = False)
-print(response)
-print(response.status_code)
-print(response.url)
-print(response.raw)
-print(response.headers)
-print(response.text)
-
 r = response.json()
 
 print(json.dumps(r, indent = 4,sort_keys = True))
@@ -39,6 +32,7 @@ for doc in r["items"]:
         print("\n \n ")
 
 #name of sa
+print
 for image in containerimages:
     PARAMS = (
     ('image', image),
