@@ -32,7 +32,6 @@ for doc in r["items"]:
         print("\n \n ")
 
 #name of sa
-print
 for image in containerimages:
     PARAMS = (
     ('image', image),
@@ -47,3 +46,9 @@ for image in containerimages:
     print(resp.status_code)
     analysis_results=r.json()
     print(analysis_results)
+
+"""
+stream = watch.Watch().stream(v1.list_namespaced_pod, "default")
+for event in stream:
+    print("Event: %s %s" % (event['type'], event['object'].metadata.name))
+"""
