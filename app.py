@@ -1,54 +1,52 @@
 import requests
 import json
 import re
-from thoth.common import get_service_account_token
+import logging
 
-#add name of namespace as variable
-internal_registry = "https://openshift.default.svc.cluster.local/oapi/v1/namespaces/dh-stage-jupyterhub/imagestreams"
-api_url = "http://user-api-fpokorny-thoth-dev.cloud.paas.upshift.redhat.com/api/v1/analyze"
-#api_url = "http://user-api-thoth-test-core.cloud.paas.upshift.redhat.com/api/v1/analyze"
+IMAGE_REGISTRY = "https://registry.upshift.redhat.com:8443/oapi/v1/projects"
+API_URL = "http://user-api-thoth-test-core.cloud.paas.upshift.redhat.com/api/v1/analyze"
+SA_NAME = 'thoth-registry-view'
+logging.basicConfig()
+logger = logging.getLogger(__file__)
 
-API_TOKEN = get_service_account_token()
-#headers={'accept': 'application/json'}
-headers = {'Authorization':'Bearer %s' %API_TOKEN}
+logger.setLevel(logging.DEBUG)
+"""
+try:
+    logger.debug('Trying to get bearer token from secrets file within pod...')
+    with open('/var/run/secrets/kubernetes.io/serviceaccount/token') as f:
+        SA_TOKEN = f.read()
+except:
+    logger.info("Not running within correct OpenShift cluster...")
+"""
+SA_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJ0aG90aC1zdGF0aW9uIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6InRob3RoLXJlZ2lzdHJ5LXZpZXctdG9rZW4tZms3azUiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoidGhvdGgtcmVnaXN0cnktdmlldyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6Ijc0NTVjNDNmLWM3MDAtMTFlOC04MTRjLWZhMTYzZTA5Y2U2NSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDp0aG90aC1zdGF0aW9uOnRob3RoLXJlZ2lzdHJ5LXZpZXcifQ.b2OQAu-cXLVyAEjPdAOLIaHCoxGNrjZeWddiBS7uFzEnVi8hZLcRRASMVt4IOcnZRM5hDaqHcuDGu9ywWpHzVcvPKVddOv3CTboYxtd7N4PjnLmmxv1YEqSe0Si05ebd4oX1d6udX6iGa0KW8WZlKdvzL_4tfVJisdS5TTqvKcjayDpJ4PtbwfV59Pl5PLATAn5Rg56BR5RnK3Q-UMqVqdI-Ujyhjnyd5t1RtSaoywKtFr8v0Jawb5SYGc0D8_r7HL3l1M52M_UI2OxaAgIuIJN4RM8unWri8UZ9CKwFvRY718pnDUikl_svaEbu7S2PPK4zKXQdPWvD7_95m4IF0g'
+headers = {'Authorization':'Bearer %s' % SA_TOKEN}
 
-response = requests.get(internal_registry,headers = headers,verify = False)
+response = requests.get(IMAGE_REGISTRY,headers = headers,verify = False)
 r = response.json()
 
-print(json.dumps(r, indent = 4,sort_keys = True))
-print(response.url)
-print(response.status_code)
-
-containerimages = []
-imageshashes = []
-#use only latest image hash
+projectnames = []
 for doc in r["items"]:
-        containerimages.append(doc["status"]["dockerImageRepository"])
-        print(doc["status"]["dockerImageRepository"])
-        for l in doc["status"]["tags"]:
-                for k in l["items"]:
-                        imageshashes.append(k["image"])
-                        print(k["image"])
-        print("\n \n ")
+    projectnames.append(doc["metadata"]["name"])
 
-#name of sa
-for image in containerimages:
+imagenames = []
+namespaces = []
+for project in projectnames:
+    registrylink = "https://registry.upshift.redhat.com:8443/oapi/v1/namespaces/%s/imagestreams"%project
+    response = requests.get(registrylink,headers = headers,verify = False)
+    r = response.json()
+    for doc in r["items"]:
+        imagenames.append(doc["metadata"]["name"])
+        namespaces.append(doc["metadata"]["namespace"])
+
+for namespace_name,image_name in zip(namespaces,imagenames):
+    DOCKER_IMAGE = 'docker-registry-default.cloud.registry.upshift.redhat.com/{}/{}'.format(namespace_name,image_name)
     PARAMS = (
-    ('image', image),
-    ('registry_user','container-analyzer-sa'),
-    ('registry_password',API_TOKEN),
-    ('debug','true'),
+    ('image', DOCKER_IMAGE),
+    ('registry_user',SA_NAME),
+    ('registry_password',SA_TOKEN),
+    ('debug','false'),
     ('verify_tls','false')
     )
-
-    resp = requests.post(url=api_url,params=PARAMS,verify = False)
-    print(resp.url)
-    print(resp.status_code)
-    analysis_results=r.json()
-    print(analysis_results)
-
-"""
-stream = watch.Watch().stream(v1.list_namespaced_pod, "default")
-for event in stream:
-    print("Event: %s %s" % (event['type'], event['object'].metadata.name))
-"""
+    r = requests.post(url=API_URL,params=PARAMS,verify = False)
+    print(r.url)
+    print(r.status_code)
