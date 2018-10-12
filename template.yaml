@@ -35,15 +35,14 @@ objects:
         git:
           uri: 'https://github.com/ace2107/Container_analyzer'
           ref: master
-        secrets:
-          -secret:
-            name: upshift
       strategy:
         type: Source
         sourceStrategy:
           from:
             kind: ImageStreamTag
             name: container-analyzer-python-36-centos7:latest
+          pullSecret:
+            name: "upshift"
           env:
             - name: ENABLE_PIPENV
               value: '1'
