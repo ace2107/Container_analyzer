@@ -9,7 +9,7 @@ metadata:
   template.openshift.io/provider-display-name: Red Hat, Inc.
   labels:
     template: thoth-core
-    app: thoth
+    app: thoth-analyzer
 
 objects:
   - apiVersion: v1
@@ -17,7 +17,7 @@ objects:
     metadata:
       name: container-analyzer
       labels:
-        app: thoth-core
+        app: thoth-analyzer
     spec:
       resources:
         limits:
@@ -52,7 +52,7 @@ objects:
     apiVersion: v1
     metadata:
       labels:
-        app: thoth-core
+        app: thoth-analyzer
       name: container-analyzer
     spec:
       name: latest
@@ -64,7 +64,7 @@ objects:
     metadata:
       name:  container-analyzer
       labels:
-        app: thoth-core
+        app: thoth-analyzer
         name:  container-analyzer
     spec:
       selector:
@@ -102,7 +102,7 @@ objects:
     metadata:
       name: container-analyzer-python-36-centos7
       labels:
-        app: thoth-core
+        app: thoth-analyzer
     spec:
       lookupPolicy:
         local: false
