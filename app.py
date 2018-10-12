@@ -13,7 +13,7 @@ logger.setLevel(logging.DEBUG)
 
 try:
     logger.debug('Trying to get bearer token from secrets file within pod...')
-    with open('/var/run/secrets/openshift.io/pull/upshift') as f:
+    with open('/var/run/secrets/openshift.io/pull/upshift-pull') as f:
         SA_TOKEN_TEST = f.read()
         print(SA_TOKEN_TEST)
 except:
