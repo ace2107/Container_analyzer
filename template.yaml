@@ -76,7 +76,6 @@ objects:
         replicas: 1
         spec:
           restartPolicy: Always
-          serviceAccountName: container-analyzer-sa
           containers:
             - name: container-analyzer
               image: container-analyzer
