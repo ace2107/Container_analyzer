@@ -88,13 +88,13 @@ objects:
                     requests:
                       memory: '128Mi'
                       cpu: '250m'
-                restartPolicy: OnFailure
                   env:
                     - name: REGISTRY_TOKEN
                       valueFrom:
                         secretKeyRef:
                           key: registry-token
                           name: registry-token
+                restartPolicy: OnFailure
   - apiVersion: v1
     kind: ImageStream
     metadata:
