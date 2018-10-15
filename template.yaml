@@ -91,7 +91,7 @@ objects:
               env:
                 - name: REGISTRY_TOKEN
                   valueFrom:
-                    configMapKeyRef:
+                    secretKeyRef:
                       key: registry-token
                       name: registry-token
       triggers:
