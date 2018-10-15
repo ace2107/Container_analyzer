@@ -79,22 +79,22 @@ objects:
           template:
             spec:
               containers:
-                - image: container-analyzer
-                  name: container-analyzer
-                  resources:
-                    limits:
-                      memory: '128Mi'
-                      cpu: '250m'
-                    requests:
-                      memory: '128Mi'
-                      cpu: '250m'
-                  env:
-                    - name: REGISTRY_TOKEN
-                      valueFrom:
-                        secretKeyRef:
-                          key: registry-token
-                          name: registry-token
-                restartPolicy: OnFailure
+              - image: container-analyzer
+                name: container-analyzer
+                resources:
+                  limits:
+                    memory: '128Mi'
+                    cpu: '250m'
+                  requests:
+                    memory: '128Mi'
+                    cpu: '250m'
+                env:
+                - name: REGISTRY_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      key: registry-token
+                      name: registry-token
+              restartPolicy: OnFailure
   - apiVersion: v1
     kind: ImageStream
     metadata:
