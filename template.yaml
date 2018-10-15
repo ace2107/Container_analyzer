@@ -61,49 +61,40 @@ objects:
       lookupPolicy:
         local: true
 
-  - apiVersion: v1
-    kind: DeploymentConfig
+  - apiVersion: batch/v2alpha1
+    kind: Cronjob
     metadata:
       name:  container-analyzer
       labels:
         app: thoth-analyzer
         name:  container-analyzer
     spec:
-      selector:
-        name: container-analyzer
-      template:
-        metadata:
-          labels:
-            name: container-analyzer
-        replicas: 1
+      schedule: "0 */6 * * *"
+      suspend : false
+      concurrencyPolicy: Forbid
+      successfulJobsHistoryLimit: 2
+      failedJobsHistoryLimit: 1
+      jobTemplate:
         spec:
-          restartPolicy: Always
-          containers:
-            - name: container-analyzer
-              image: container-analyzer
-              resources:
-                limits:
-                  memory: '96Mi'
-                  cpu: '125m'
-                requests:
-                  memory: '96Mi'
-                  cpu: '125m'
-              env:
-                - name: REGISTRY_TOKEN
-                  valueFrom:
-                    secretKeyRef:
-                      key: registry-token
-                      name: registry-token
-      triggers:
-        - type: ConfigChange
-        - type: ImageChange
-          imageChangeParams:
-            automatic: true
-            containerNames: [container-analyzer]
-            from:
-              kind: ImageStreamTag
-              name: 'container-analyzer:latest'
-
+          template:
+            spec:
+              containers:
+                - image: container-analyzer
+                  name: container-analyzer
+                  resources:
+                    limits:
+                      memory: '128Mi'
+                      cpu: '250m'
+                    requests:
+                      memory: '128Mi'
+                      cpu: '250m'
+                restartPolicy: OnFailure
+                  env:
+                    - name: REGISTRY_TOKEN
+                      valueFrom:
+                        secretKeyRef:
+                          key: registry-token
+                          name: registry-token
   - apiVersion: v1
     kind: ImageStream
     metadata:
