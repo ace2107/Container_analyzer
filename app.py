@@ -52,6 +52,7 @@ def analyze_registry_images():
 
 def analyze_jh_images():
     _SA_TOKEN = os.getenv('JH_TOKEN')
+    headers = {'Authorization':'Bearer %s' % _SA_TOKEN}
     response = requests.get(JH_REGISTRY,headers = headers,verify = False)
     r = response.json()
     containerimages = []
