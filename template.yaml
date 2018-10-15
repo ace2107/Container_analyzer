@@ -88,6 +88,12 @@ objects:
                 requests:
                   memory: '96Mi'
                   cpu: '125m'
+              env:
+                - name: REGISTRY_TOKEN
+                  valueFrom:
+                    configMapKeyRef:
+                      key: registry-token
+                      name: registry-token
       triggers:
         - type: ConfigChange
         - type: ImageChange
