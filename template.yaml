@@ -62,7 +62,7 @@ objects:
         local: true
 
   - apiVersion: batch/v2alpha1
-    kind: Cronjob
+    kind: CronJob
     metadata:
       name:  container-analyzer
       labels:
