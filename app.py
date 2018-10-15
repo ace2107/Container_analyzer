@@ -15,7 +15,7 @@ logger = logging.getLogger(__file__)
 
 logger.setLevel(logging.DEBUG)
 
-def analyze-registry-images():
+def analyze_registry_images():
     _SA_NAME = 'thoth-registry-view'
     _SA_TOKEN = os.getenv('REGISTRY_TOKEN')
     headers = {'Authorization':'Bearer %s' % _SA_TOKEN}
@@ -48,7 +48,7 @@ def analyze-registry-images():
         print(r.url)
         print(r.status_code)
 
-def analyze-jh-images():
+def analyze_jh_images():
     response = requests.get(JH_REGISTRY,headers = headers,verify = False)
     r = response.json()
     containerimages = []
@@ -71,8 +71,8 @@ def analyze-jh-images():
         """
 
 def main():
-    analyze-jh-images()
-    analyze-registry-images()
+    analyze_jh_images()
+    analyze_registry_images()
 
 if __name__ == '__main__':
     print("Running container-analyzer version", __version__)
