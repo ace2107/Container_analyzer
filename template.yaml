@@ -69,7 +69,7 @@ objects:
         app: thoth-analyzer
         name:  container-analyzer
     spec:
-      schedule: "* * * * *"
+      schedule: "* */3 * * *"
       suspend : false
       concurrencyPolicy: Forbid
       successfulJobsHistoryLimit: 2
