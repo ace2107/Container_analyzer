@@ -3,6 +3,7 @@ import json
 import re
 import logging
 import os
+
 __version__ = '0.1'
 __author__ = 'Akash Parekh <aparekh@redhat.com'
     
@@ -49,26 +50,24 @@ def analyze_registry_images():
         print(r.status_code)
 
 def analyze_jh_images():
+    _SA_TOKEN = os.getenv('JH_TOKEN')
     response = requests.get(JH_REGISTRY,headers = headers,verify = False)
     r = response.json()
     containerimages = []
     for doc in r["items"]:
         containerimages.append(doc["status"]["dockerImageRepository"])
         print(containerimages)
-    #id-password--for-sa
     for image in containerimages:
         PARAMS = (
         ('image', image),
         ('registry_user','container-analyzer-sa'),
-        ('registry_password',API_TOKEN),
+        ('registry_password',_SA_TOKEN),
         ('debug','true'),
         ('verify_tls','false')
         )
-        """
         resp = requests.post(url=api_url,params=PARAMS,verify = False)
         print(resp.url)
         print(resp.status_code)
-        """
 
 def main():
     analyze_jh_images()

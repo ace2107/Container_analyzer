@@ -69,7 +69,7 @@ objects:
         app: thoth-analyzer
         name:  container-analyzer
     spec:
-      schedule: "0 */2 * * *"
+      schedule: "* * * * *"
       suspend : false
       concurrencyPolicy: Forbid
       successfulJobsHistoryLimit: 2
@@ -94,6 +94,11 @@ objects:
                     secretKeyRef:
                       key: registry-token
                       name: registry-token
+                - name: JH_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      key: jh-token
+                      name: jh-token
               restartPolicy: OnFailure
   - apiVersion: v1
     kind: ImageStream
