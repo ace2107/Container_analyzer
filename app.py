@@ -67,7 +67,7 @@ def analyze_jh_images():
         ('debug','true'),
         ('verify_tls','false')
         )
-        resp = requests.post(url=api_url,params=PARAMS,verify = False)
+        resp = requests.post(url=API_URL,params=PARAMS,verify = False)
         print(resp.url)
         print(resp.status_code)
 
