@@ -18,10 +18,10 @@
     "default": {
         "adal": {
             "hashes": [
-                "sha256:534ab04df7ab7c30bc7fe9526c3120e50b9496982f6c85001b05fd7cf4134eb7",
-                "sha256:a2a2f7e4a2d2e2014e3d5ff9f6d614af280c879a1dbf96bb64d92d85a814a645"
+                "sha256:ba52913c38d76b4a4d88eaab41a5763d056ab6d073f106e0605b051ab930f5c1",
+                "sha256:bf79392b8e9e5e82aa6acac3835ba58bbac0ccf7e15befa215863f83d5f6a007"
             ],
-            "version": "==1.1.0"
+            "version": "==1.2.0"
         },
         "asn1crypto": {
             "hashes": [
@@ -39,10 +39,10 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:376690d6f16d32f9d1fe8932551d80b23e9d393a8578c5633a2ed39a64861638",
-                "sha256:456048c7e371c089d0a77a5212fb37a2c2dce1e24146e3b7e0261736aaeaa22a"
+                "sha256:339dc09518b07e2fa7eda5450740925974815557727d6bd35d319c1524a04a4c",
+                "sha256:6d58c986d22b038c8c0df30d639f23a3e6d172a05c3583e766f4c0b785c0986a"
             ],
-            "version": "==2018.8.24"
+            "version": "==2018.10.15"
         },
         "cffi": {
             "hashes": [
@@ -233,11 +233,11 @@
         },
         "requests": {
             "hashes": [
-                "sha256:63b52e3c866428a224f97cab011de738c36aec0185aa91cfacd418b5d58911d1",
-                "sha256:ec22d826a36ed72a7358ff3fe56cbd4ba69dd7a6718ffd450ff0e9df7a47ce6a"
+                "sha256:99dcfdaaeb17caf6e526f32b6a7b780461512ab3f1d992187801694cba42770c",
+                "sha256:a84b8c9ab6239b578f22d1c21d51b696dcfe004032bb80ea832398d6909d7279"
             ],
             "index": "pypi",
-            "version": "==2.19.1"
+            "version": "==2.20.0"
         },
         "requests-oauthlib": {
             "hashes": [
@@ -249,10 +249,10 @@
         },
         "rfc5424-logging-handler": {
             "hashes": [
-                "sha256:0fa181ba9ef4b517c938c90608f4c3a5c1abf3ea29250f0df294bef439ba2c9e",
-                "sha256:a78a0a42b19e44215cd8a5be4ab42bfd3593c0c30a9cbfde9478e398f502ea00"
+                "sha256:1ab343e1ee3639251d6b5dfd4db2e614f056b068c148a172314486804aac2c7d",
+                "sha256:f51dd80c2606fec874f871ed4b920c4087d4308064d2a138b8d55808d4987dce"
             ],
-            "version": "==1.1.2"
+            "version": "==1.2.1"
         },
         "rsa": {
             "hashes": [
@@ -260,6 +260,13 @@
                 "sha256:1a836406405730121ae9823e19c6e806c62bbad73f890574fff50efa4122c487"
             ],
             "version": "==4.0"
+        },
+        "sentry-sdk": {
+            "hashes": [
+                "sha256:475ecd892da2eac77ced7193231baf2431f3852f1795362e9e780e0f7af728b1",
+                "sha256:883f31e0399991c02a186fa32a17af6e4cfea330deab2c38f50b60f9391db2fc"
+            ],
+            "version": "==0.4.3"
         },
         "six": {
             "hashes": [
@@ -270,11 +277,11 @@
         },
         "thoth-common": {
             "hashes": [
-                "sha256:8acc61dff81750058764ac460e5db501836d115074007b6cf62ae3c7431d25ce",
-                "sha256:fc989145e6938eefc92a079fe8692890934b970379a3025debae2907d6ca3596"
+                "sha256:ccf901789e8b67fcc7f70e9b65e87db2f5c475008a3edc25e19cccebd430ea9f",
+                "sha256:e258f8d3c70fec87cd6d153857639f75f40a124abcc640e466189e8d07a2c447"
             ],
             "index": "pypi",
-            "version": "==0.3.1"
+            "version": "==0.3.11"
         },
         "tzlocal": {
             "hashes": [
@@ -284,10 +291,10 @@
         },
         "urllib3": {
             "hashes": [
-                "sha256:a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf",
-                "sha256:b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"
+                "sha256:41c3db2fc01e5b907288010dec72f9d0a74e37d6994e6eb56849f59fea2265ae",
+                "sha256:8819bba37a02d143296a4d032373c4dd4aca11f6d4c9973335ca75f9c8475f59"
             ],
-            "version": "==1.23"
+            "version": "==1.24"
         },
         "websocket-client": {
             "hashes": [
